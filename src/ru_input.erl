@@ -74,30 +74,39 @@ key_loop(Buffer) ->
     Char = cecho:getch(),
     RetChar = case Char of
         262 -> kp_nw;
+        $y  -> kp_nw;
         $7 -> kp_nw;
 
         259 -> kp_n;
+        $k  -> kp_n;
         $8 -> kp_n;
         
         339 -> kp_ne;
+        $u  -> kp_ne;
         $9 -> kp_ne;
         
         260 -> kp_w;
+        $h  -> kp_w;
         $4 -> kp_w;
         
         350 -> kp_center;
+        $.  -> kp_center;
         $5 -> kp_center;
         
         261 -> kp_e;
+        $l  -> kp_e;
         $6 -> kp_e;
         
         360 -> kp_sw;
+        $b  -> kp_sw;
         $1 -> kp_sw;
         
         258 -> kp_s;
+        $j  -> kp_s;
         $2 -> kp_s;
         
         338 -> kp_se;
+        $n  -> kp_se;
         $3 -> kp_se;
         
         Other -> Other
