@@ -138,6 +138,20 @@ open_cmd_mode(Input, _State) ->
     end,
     set_mode({ru_input, game_mode}).
 
+close_cmd_mode(Input, _State) ->
+    case Input of
+        Dir when Dir =:= kp_n orelse Dir =:= kp_s orelse Dir =:= kp_e orelse
+            Dir =:= kp_w orelse Dir =:= kp_nw orelse Dir =:= kp_ne orelse
+            Dir =:= kp_sw orelse Dir =:= kp_se ->
+                case ru_state:close_door(Dir) of
+                    ok -> ru_console:msg("The door bangs shut.");
+                    nodoor -> ru_console:msg("Yeah... That's not open.");
+                    error -> ru_console:msg("It's stuck!")
+                end;
+        _ -> ok
+    end,
+    set_mode({ru_input, game_mode}).
+
 game_mode(Input, _State) ->
     case Input of
         $Q -> 
@@ -151,6 +165,10 @@ game_mode(Input, _State) ->
         Action when Action =:= $o orelse Action =:= $O ->
             ru_console:msg("In which direction?"),
             set_mode(fun open_cmd_mode/2); 
+
+        Action when Action =:= $c ->
+            ru_console:msg("In which direction?"),
+            set_mode(fun close_cmd_mode/2); 
 
         _ -> ru_console:msg(?PP(Input))
     end.
